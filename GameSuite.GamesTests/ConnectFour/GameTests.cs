@@ -28,34 +28,33 @@ namespace GameSuite.Games.ConnectFour.Tests
             var b = new Game();
 
             // test playing in invalid columns
-            Assert.IsFalse(b.Play(-1, 1));
-            Assert.IsFalse(b.Play(10, 1));
+            Assert.IsFalse(b.Play(new Move(1, 10)));
 
             // test invalid players
-            Assert.IsFalse(b.Play(2, 0));
-            Assert.IsFalse(b.Play(2, 3));
+            Assert.IsFalse(b.Play(new Move(0, 3)));
+            Assert.IsFalse(b.Play(new Move(3, 0)));
 
             // and try some correct plays
-            Assert.IsTrue(b.Play(0, 1));
-            Assert.IsTrue(b.Play(2, 2));
+            Assert.IsTrue(b.Play(new Move(1, 0)));
+            Assert.IsTrue(b.Play(new Move(2, 2)));
 
             // fill a column
             for (int i = 0; i < b.Height; i++)
             {
-                Assert.IsTrue(b.Play(4, 1));
+                Assert.IsTrue(b.Play(new Move(1, 4)));
             }
             // a move into a full column should be rejected
-            Assert.IsFalse(b.Play(4, 1));
+            Assert.IsFalse(b.Play(new Move(1, 4)));
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
             var b = new Game();
-            b.Play(1, 2);
-            b.Play(4, 1);
-            b.Play(4, 2);
-            b.Play(3, 1);
+            b.Play(new Move(2, 1));
+            b.Play(new Move(1, 4));
+            b.Play(new Move(2, 4));
+            b.Play(new Move(1, 3));
 
             Console.WriteLine(b.ToString());
 
