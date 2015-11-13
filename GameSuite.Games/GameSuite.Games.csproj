@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectFour\Game.cs" />
+    <Compile Include="ConnectFour\Move.cs" />
     <Compile Include="IGame.cs" />
     <Compile Include="IMove.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace GameSuite.Games
 {
-    public interface IGame<T>
+    // this may be a misuse of contravariance
+    public interface IGame<T, in U>
+        where T : IGame<T, U>
+        where U : IMove<T>
     {
-        bool CanPlay(IMove<T> move);
-        bool Play(IMove<T> move);
+        bool CanPlay(U move);
+        bool Play(U move);
 
-        T GenerateMoves(); // TODO: this is wrong return type
+        T GenerateMoves();
         T GenerateChild();
 
         /// <summary>

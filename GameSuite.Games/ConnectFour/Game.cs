@@ -5,7 +5,7 @@ using GameSuite.Games;
 
 namespace GameSuite.Games.ConnectFour
 {
-    public class Game : IGame<Game>
+    public class Game : IGame<Game, Move>
     {
         public uint Height { get; }
         public uint Width { get; }
@@ -22,15 +22,15 @@ namespace GameSuite.Games.ConnectFour
         }
 
 
-        public bool Play(int col, sbyte player)
+        public bool Play(Move move)
         {
             // ensure column and player are valid
-            if (col < 0 || col >= Width || player < 1 || player > 2)
+            if (move.Col >= Width || move.Player < 1 || move.Player > 2)
                 return false;
 
             var row = 0;
             // find the first filled cell
-            while (row < Height && Grid[row, col] == 0)
+            while (row < Height && Grid[row, move.Col] == 0)
                 row++;
 
             // if all cells in the column are filled, no move can be made
@@ -39,19 +39,19 @@ namespace GameSuite.Games.ConnectFour
 
             // adjust to empty cell and fill it
             row -= 1;
-            Grid[row, col] = player;
+            Grid[row, move.Col] = move.Player;
             return true;
         }
 
 
-        public bool CanPlay(int col)
+        public bool CanPlay(Move move)
         {
-            if (col < 0 || col >= Width) return false;
+            if (move.Col >= Width) return false;
 
             for (int row = 0; row < Height; row++)
             {
                 // if any cells in the column are empty it can be played in
-                if (Grid[row, col] == 0)
+                if (Grid[row, move.Col] == 0)
                     return true;
             }
 
@@ -82,16 +82,6 @@ namespace GameSuite.Games.ConnectFour
             gridStr.Append(border);
 
             return gridStr.ToString();
-        }
-
-        public bool CanPlay(IMove<Game> move)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Play(IMove<Game> move)
-        {
-            throw new NotImplementedException();
         }
 
         public Game GenerateMoves()
