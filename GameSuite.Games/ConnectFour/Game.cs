@@ -9,6 +9,7 @@ namespace GameSuite.Games.ConnectFour
         public uint Height { get; }
         public uint Width { get; }
         private sbyte[,] Grid;
+        private Stack<Move> History;
 
 
         public Game() : this(6, 7) { }
@@ -18,6 +19,7 @@ namespace GameSuite.Games.ConnectFour
             Height = height;
             Width = width;
             Grid = new sbyte[Height, Width];
+            History = new Stack<Move>();
         }
 
 
@@ -39,6 +41,7 @@ namespace GameSuite.Games.ConnectFour
             // adjust to empty cell and fill it
             row -= 1;
             Grid[row, move.Col] = move.Player;
+            History.Push(move);
             return true;
         }
 
@@ -95,6 +98,12 @@ namespace GameSuite.Games.ConnectFour
 
         public int Evaluate()
         {
+            throw new NotImplementedException();
+        }
+
+        public bool Undo()
+        {
+            var move = History.Pop();
             throw new NotImplementedException();
         }
     }

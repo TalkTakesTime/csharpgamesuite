@@ -1,6 +1,6 @@
 ﻿namespace GameSuite.Games
 {
-    public interface IMove<T>
+    public interface IMove<G>
     {
     }
 }

@@ -1,15 +1,18 @@
-﻿namespace GameSuite.Games
+﻿using System.Collections.Generic;
+
+namespace GameSuite.Games
 {
     // this may be a misuse of contravariance
-    public interface IGame<T, in U>
-        where T : IGame<T, U>
-        where U : IMove<T>
+    public interface IGame<G, in M>
+        where G : IGame<G, M>
+        where M : IMove<G>
     {
-        bool CanPlay(U move);
-        bool Play(U move);
+        bool CanPlay(M move);
+        bool Play(M move);
+        bool Undo();
 
-        T GenerateMoves();
-        T GenerateChild();
+        G GenerateMoves();
+        G GenerateChild();
 
         /// <summary>
         /// Evaluates the current game state, giving a positive score if the
