@@ -2,10 +2,10 @@
 {
     public class Move : IMove<Game>
     {
-        public sbyte Player { get; }
+        public byte Player { get; }
         public uint Col { get; }
 
-        public Move(sbyte player, uint col)
+        public Move(byte player, uint col)
         {
             Player = player;
             Col = col;
